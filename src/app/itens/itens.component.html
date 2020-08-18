@@ -1,0 +1,153 @@
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <h6 class="border-bottom border-gray pb-2 mb-0">Adicionar novo item para jogador <small>( Add new item for player
+      )</small></h6>
+  <div class="text-muted pt-3">
+
+    <div class="form-group col-md-6">
+      <h6>Pesquisar jogador por login</h6>
+      <form id="form-detail-user" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+
+            <input type="text" [(ngModel)]="user.login" id="loginInput" name="loginInput" #model="ngModel" required
+              class="form-control" [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+              placeholder="Login do jogador">
+            <div *ngIf="f.submitted && model.invalid" class="invalid-feedback">
+              <div *ngIf="model.errors.required">Login é obrigatório</div>
+            </div>
+
+          </div>
+          <div class="form-group col-md-4">
+            <button type="submit" class="btn btn-primary" (click)="findUserByLogin(f)">Pesquisar</button>
+          </div>
+
+          <div class="form-row col-md-8">
+            <div class="table-responsive">
+              <table class="table">
+                <tr>
+                  <td><strong>UID</strong></td>
+                  <td>{{user.loginUID}}</td>
+                </tr>
+                <tr>
+                  <td><strong>Login</strong></td>
+                  <td>{{user.login}}</td>
+                </tr>
+                <tr>
+                  <td><strong>Atividade</strong></td>
+                  <td>{{user.connecting}}</td>
+                  <!-- <td><button type="submit" class="btn btn-primary">Salvar</button></td> -->
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="user.loginUID" id="div-add-item" name="div-add-item">
+
+    <hr>
+    <div class="text-muted pt-3">
+      <form id="form-item-panel" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+        <h6>Inserir itens para o jogador</h6>
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <input [(ngModel)]="item.itemID" type="number" class="form-control" id="itemInput" name="itemInput"
+              placeholder="ID Item">
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck">
+                <label class="form-check-label" for="gridCheck">
+                  Lista de itens
+                </label>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <textarea disabled class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <fieldset class="form-group">
+            <div class="row">
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="opcao1"
+                    checked>
+                  <label class="form-check-label" for="gridRadios1">
+                    Normal
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="opcao2">
+                  <label class="form-check-label" for="gridRadios2">
+                    Carga
+                  </label>
+                </div>
+                <hr>
+                <div class="col-7">
+                  <input disabled class="form-control" type="text" name="gridRadios" id="gridRadios1" value=""
+                    placeholder="( qtd )">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <div class="row">
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="opcao1"
+                    checked>
+                  <label class="form-check-label" for="gridRadios1">
+                    Permanente
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="opcao2">
+                  <label class="form-check-label" for="gridRadios2">
+                    Temporário
+                  </label>
+                </div>
+                <hr>
+                <div class="col-7">
+                  <input disabled class="form-control" type="text" name="qtd" id="gridRadios1" value=""
+                    placeholder="( qtd )">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="form-group col-md-2">
+            <select [(ngModel)]="item.gradeID" class="form-control custom-select" id="raritySelector"
+              name="raritySelector">
+              <option value="">Raridade</option>
+              <option *ngFor="let rarity of optionsRarity" [value]="rarity.value">
+                {{rarity.name}}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-2">
+            <select [(ngModel)]="itemFromPanel.levelStrength" class="form-control custom-select" id="strengthSelector"
+              name="strengthSelector">
+              <option value="" selected>Fortificação</option>
+              <option *ngFor="let level of optionsStrength" [value]="level.value">
+                {{level.value}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group col-md-4">
+          <button type="submit" (click)='newItemFromPanel(f)' class="btn btn-primary">Enviar</button>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+
+</div>

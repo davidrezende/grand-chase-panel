@@ -1,0 +1,112 @@
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <h6 class="border-bottom border-gray pb-2 mb-0">Registrar novo jogador <small>( Register new player )</small></h6>
+  <div class="text-muted pt-3">
+    <!-- <form> -->
+      <form id="form-register-user" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+      <!-- <form id="form-register-user" (ngSubmit)="f.form.valid && saveUser(f)" #f="ngForm" novalidate> -->
+      <div class="form-row">
+        <div class="form-group col-md-4">
+
+          <label for="model">Login</label>
+          <input type="text" [(ngModel)]="user.login" id="loginInput" name="loginInput" #model="ngModel" required
+            class="form-control" [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+            placeholder="Digite o login do jogador">
+          <div *ngIf="f.submitted && model.invalid" class="invalid-feedback">
+            <div *ngIf="model.errors.required">Login é obrigatório</div>
+          </div>
+
+          <label for="model">Email</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">@</div>
+            </div>
+            <input type="text" [(ngModel)]="user.email" id="emailInput" name="emailInput" #model="ngModel" required
+              class="form-control" [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+              placeholder="Digite o email do jogador">
+          </div>
+          <div *ngIf="f.submitted && model.invalid" class="invalid-feedback">
+            <div *ngIf="model.errors.required">Email é obrigatório</div>
+          </div>
+
+
+
+          <!--
+    <label for="exampleFormControlInput1">Login</label>
+    <input type="text" class="form-control" id="loginInput" placeholder="batata"> -->
+        </div>
+        <div class="form-group col-md-4">
+
+          <label for="model">Senha</label>
+          <input type="text" [(ngModel)]="user.passwd" id="passwdInput" name="passwdInput" #model="ngModel" required
+            class="form-control" [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+            placeholder="Digite a senha">
+          <div *ngIf="f.submitted && model.invalid" class="invalid-feedback">
+            <div *ngIf="model.errors.required">Senha é obrigatória</div>
+          </div>
+
+          <!-- <label for="model">Confirmar senha</label>
+          <input type="text" [(ngModel)]="user.login" id="passwdConfInput" name="passwdConfInput" #model="ngModel"
+            required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+            placeholder="Digite novamente a senha">
+            <div *ngIf="f.submitted && model.invalid" class="invalid-feedback">
+              <div *ngIf="model.errors.required">Confirme a senha</div>
+            </div> -->
+
+          </div>
+          <div class="form-group col-md-4">
+          <label for="exampleFormControlSelect1">Sexo <small>( Sex )</small></label>
+
+        <select id="exampleFormControlSelect1" class="form-control" (change)="selectChangeHandler($event)"
+          required  [ngClass]="{ 'is-invalid': f.submitted && model.invalid }">
+
+           <option value="-1"> </option>
+            <option value="0">Masculino</option>
+            <option value="1">Feminino</option>
+
+          </select>
+          <div *ngIf="f.submitted && model.invalid" class="invalid-feedback">
+            <div *ngIf="model.errors.required">Sexo é obrigatório</div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-4">
+        <button type="submit" class="btn btn-primary" (click)="saveUser(f)">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <h6 class="border-bottom border-gray pb-2 mb-0">Últimos jogadores registrados <small>( Last registered players
+      )</small></h6>
+  <div class="text-muted pt-3">
+    <form id="form-register-item" >
+      <div class="table-responsive">
+        <table class="table">
+          <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Age</th>
+            <th>Ação</th>
+          </tr>
+          <tr>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>50</td>
+            <!-- <td><button type="submit" class="btn btn-primary">Salvar</button></td> -->
+          </tr>
+          <tr>
+            <td>Eve</td>
+            <td>Jackson</td>
+            <td>94</td>
+            <!-- <td><button type="submit" class="btn btn-primary">Salvar</button></td> -->
+          </tr>
+        </table>
+      </div>
+    </form>
+
+  </div>
+</div>
