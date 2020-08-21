@@ -74,21 +74,21 @@
             <div class="row">
               <div class="col-sm-10">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="opcao1"
+                  <input #radioStackNormal checked class="form-check-input" type="radio" name="gridRadios" id="radioStackNormal" value="opcao1"
                     checked>
-                  <label class="form-check-label" for="gridRadios1">
+                  <label class="form-check-label" for="radioStackNormal">
                     Normal
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="opcao2">
-                  <label class="form-check-label" for="gridRadios2">
+                  <input  #radioStackAmount class="form-check-input" type="radio" name="gridRadios" id="radioStackAmount" value="opcao2">
+                  <label class="form-check-label" for="radioStackAmount">
                     Carga
                   </label>
                 </div>
                 <hr>
                 <div class="col-7">
-                  <input disabled class="form-control" type="text" name="gridRadios" id="gridRadios1" value=""
+                  <input  [disabled]="radioStackAmount.checked" class="form-control" [(ngModel)]="itemFromPanel.amountStack" type="text" name="inputStackAmount" id="inputStackAmount" value=""
                     placeholder="( qtd )">
                 </div>
               </div>
@@ -99,15 +99,15 @@
             <div class="row">
               <div class="col-sm-10">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="opcao1"
+                  <input class="form-check-input" type="radio" name="gridRadios2" id="radioPermItem" value="opcao1"
                     checked>
-                  <label class="form-check-label" for="gridRadios1">
+                  <label class="form-check-label" for="radioPermItem">
                     Permanente
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="opcao2">
-                  <label class="form-check-label" for="gridRadios2">
+                  <input class="form-check-input" type="radio" name="gridRadios2" id="radioTempItem" value="opcao2">
+                  <label class="form-check-label" for="radioTempItem">
                     Temporário
                   </label>
                 </div>

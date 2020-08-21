@@ -7,4 +7,6 @@ export interface ItemPanel {
   attributes: ItemAttribute[];
   cards: ItemSocket[];
   levelStrength: number;
+  timeItem: number,
+  amountStack: number
 }

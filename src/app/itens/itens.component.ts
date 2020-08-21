@@ -18,6 +18,8 @@ export class ItensComponent implements OnInit {
   textAreaItems: string;
   arrayItems = {} as string[];
   raritySelect: number;
+  timeItemInput: number;
+  amountStackInput: number;
 
   itemFromPanel = {} as ItemPanel;
 
