@@ -53,11 +53,11 @@
         <h6>Inserir itens para o jogador</h6>
         <div class="form-row">
           <div class="form-group col-md-2">
-            <input [(ngModel)]="item.itemID" type="number" class="form-control" id="itemInput" name="itemInput"
+            <input [disabled]="cbVariousItems.checked" [(ngModel)]="item.itemID" type="number" class="form-control" id="itemInput" name="itemInput"
               placeholder="ID Item">
             <div class="form-group">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
+                <input #cbVariousItems ngModel class="form-check-input" type="checkbox" id="cbVariousItems">
                 <label class="form-check-label" for="gridCheck">
                   Lista de itens
                 </label>
@@ -65,7 +65,7 @@
             </div>
             <div class="form-row">
               <div class="form-group col-md-12">
-                <textarea disabled class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea [(ngModel)]="textAreaItems"  (ngModelChange)="parseTextArea()" [disabled]="!cbVariousItems.checked" class="form-control" id="taVariousItems" name="taVariousItems"></textarea>
               </div>
             </div>
           </div>

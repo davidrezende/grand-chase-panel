@@ -15,6 +15,8 @@ export class ItensComponent implements OnInit {
   user = {} as User;
   item = {} as Item;
 
+  textAreaItems: string;
+  arrayItems = {} as string[];
   raritySelect: number;
 
   itemFromPanel = {} as ItemPanel;
@@ -52,7 +54,6 @@ export class ItensComponent implements OnInit {
   ngOnInit() {
   }
 
-
   findUserByLogin(form: NgForm) {
     // this.userService.findUserByLogin(this.user.login).subscribe((user: User) => {
     //   this.user = user;
@@ -72,14 +73,56 @@ export class ItensComponent implements OnInit {
     );
   }
 
-  newItemFromPanel(form: NgForm) {
+  parseTextArea() {
+    this.arrayItems = this.textAreaItems.split("\n");
+ }
+
+ newItemFromPanel(form: NgForm){
+   console.log(this.arrayItems)
+   this.arrayItems.forEach(i => {
+    console.log("item do array:" + i);
+      this.saveItem(form, i);
+   })
+ }
+
+ saveItem(form, i){
+  this.item.loginUID = this.user.loginUID;
+  this.item.itemID = i;
+  this.itemFromPanel.item = this.item;
+
+  if(!this.validateNewItem()){
+    return;
+  }
+  console.log("Objeto a ser inserido:", this.itemFromPanel)
+
+  this.itemService.newItemFromPanel(this.itemFromPanel).subscribe(
+    resultado => {
+      console.log(resultado)
+      this.itemFromPanel = resultado;
+      alert('Item ' + this.itemFromPanel.item.itemID + ' inserido ao jogador ' + this.user.login + ' com sucesso!')
+      this.cleanFormSucess(form);
+    },
+    erro => {
+      if (erro.status != 200) {
+        alert('Erro ao inserir item!');
+        this.cleanForm(form);
+      }
+    }
+  );
+
+}
+
+  oldsendDateFromInsertItem(form: NgForm) {
     this.item.loginUID = this.user.loginUID;
     this.itemFromPanel.item = this.item;
+
+    console.log("Qtd itens na lista:" + this.arrayItems.length + "  Lista de itens a ser inserida:", this.arrayItems)
+
+
 
     if(!this.validateNewItem()){
       return;
     }
-
     console.log("Objeto a ser inserido:", this.itemFromPanel)
 
     this.itemService.newItemFromPanel(this.itemFromPanel).subscribe(
@@ -142,7 +185,7 @@ export class ItensComponent implements OnInit {
     if (this.itemFromPanel.item.itemID == undefined
       || this.itemFromPanel.item.itemID.toString() == ""
       || this.itemFromPanel.item.itemID.toString().length <= 3) {
-      alert("Erro ao inserir item: Id do item inválido")
+      alert("Erro ao inserir item: Id do item inválido -> "+ this.itemFromPanel.item.itemID)
       return false;
     }
 
@@ -182,5 +225,6 @@ export class ItensComponent implements OnInit {
     this.itemFromPanel.cards = [];
     this.itemFromPanel.attributes = [];
   }
+
 
 }
