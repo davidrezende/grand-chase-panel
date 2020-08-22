@@ -50,22 +50,30 @@
     <hr>
     <div class="text-muted pt-3">
       <form id="form-item-panel" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-        <h6>Inserir itens para o jogador</h6>
+        <h6>Inserir itens para o jogador <strong> {{user.login | titlecase}} </strong></h6>
         <div class="form-row">
           <div class="form-group col-md-2">
-            <input [disabled]="cbVariousItems.checked" [(ngModel)]="item.itemID" type="number" class="form-control" id="itemInput" name="itemInput"
-              placeholder="ID Item">
-            <div class="form-group">
+            <!-- <input [disabled]="cbVariousItems.checked" [(ngModel)]="item.itemID" type="number" class="form-control" id="itemInput" name="itemInput"
+              placeholder="ID Item"> -->
+            <!-- <div class="form-group">
               <div class="form-check">
                 <input #cbVariousItems ngModel class="form-check-input" type="checkbox" id="cbVariousItems">
-                <label class="form-check-label" for="gridCheck">
+                <label checked class="form-check-label" for="gridCheck">
                   Lista de itens
                 </label>
               </div>
-            </div>
+            </div> -->
             <div class="form-row">
               <div class="form-group col-md-12">
-                <textarea [(ngModel)]="textAreaItems"  (ngModelChange)="parseTextArea()" [disabled]="!cbVariousItems.checked" class="form-control" id="taVariousItems" name="taVariousItems"></textarea>
+                <!-- <textarea [(ngModel)]="textAreaItems"  (ngModelChange)="parseTextArea()" [disabled]="!cbVariousItems.checked" class="form-control" id="taVariousItems" name="taVariousItems"></textarea> -->
+                <textarea placeholder="Items (List of items)" [(ngModel)]="textAreaItems"
+                  (ngModelChange)="parseTextArea()" class="form-control" id="taVariousItems"
+                  name="taVariousItems"></textarea>
+                <small>Example:</small>
+                <br/>
+                <small>16030</small>
+                <br/>
+                <small>16040</small>
               </div>
             </div>
           </div>
@@ -74,22 +82,23 @@
             <div class="row">
               <div class="col-sm-10">
                 <div class="form-check">
-                  <input #radioStackNormal checked class="form-check-input" type="radio" name="gridRadios" id="radioStackNormal" value="opcao1"
-                    checked>
+                  <input [(ngModel)]="rbStack" class="form-check-input" type="radio" name="gridRadios"
+                    id="radioStackNormal" value="normal" checked>
                   <label class="form-check-label" for="radioStackNormal">
                     Normal
                   </label>
                 </div>
                 <div class="form-check">
-                  <input  #radioStackAmount class="form-check-input" type="radio" name="gridRadios" id="radioStackAmount" value="opcao2">
+                  <input [(ngModel)]="rbStack" class="form-check-input" type="radio" name="gridRadios"
+                    id="radioStackAmount" value="carga">
                   <label class="form-check-label" for="radioStackAmount">
-                    Carga
+                    Carga <small> ( Stack ) </small>
                   </label>
                 </div>
                 <hr>
                 <div class="col-7">
-                  <input  [disabled]="radioStackAmount.checked" class="form-control" [(ngModel)]="itemFromPanel.amountStack" type="text" name="inputStackAmount" id="inputStackAmount" value=""
-                    placeholder="( qtd )">
+                  <input [(ngModel)]="amountStackInput" [disabled]="rbStack != 'carga'" class="form-control" [(ngModel)]="itemFromPanel.amountStack"
+                    type="text" name="inputStackAmount" id="inputStackAmount" value="" placeholder="( qt )">
                 </div>
               </div>
             </div>
@@ -99,22 +108,23 @@
             <div class="row">
               <div class="col-sm-10">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gridRadios2" id="radioPermItem" value="opcao1"
-                    checked>
+                  <input [(ngModel)]="rbTemporary" class="form-check-input" type="radio" name="gridRadios2"
+                    id="radioPermItem" value="perma" checked>
                   <label class="form-check-label" for="radioPermItem">
-                    Permanente
+                    Permanente <small> ( Permanent ) </small>
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gridRadios2" id="radioTempItem" value="opcao2">
+                  <input [(ngModel)]="rbTemporary" class="form-check-input" type="radio" name="gridRadios2"
+                    id="radioTempItem" value="temporary">
                   <label class="form-check-label" for="radioTempItem">
-                    Temporário
+                    Temporário <small> ( Temporary ) </small>
                   </label>
                 </div>
                 <hr>
                 <div class="col-7">
-                  <input disabled class="form-control" type="text" name="qtd" id="gridRadios1" value=""
-                    placeholder="( qtd )">
+                  <input [(ngModel)]="timeItemInput" [disabled]="rbTemporary != 'temporary'" class="form-control" type="text" name="qtd"
+                    id="gridRadios1" value="" placeholder="( days )">
                 </div>
               </div>
             </div>
@@ -123,7 +133,6 @@
           <div class="form-group col-md-2">
             <select [(ngModel)]="item.gradeID" class="form-control custom-select" id="raritySelector"
               name="raritySelector">
-              <option value="">Raridade</option>
               <option *ngFor="let rarity of optionsRarity" [value]="rarity.value">
                 {{rarity.name}}
               </option>
@@ -131,11 +140,10 @@
           </div>
 
           <div class="form-group col-md-2">
-            <select [(ngModel)]="itemFromPanel.levelStrength" class="form-control custom-select" id="strengthSelector"
+            <select [disabled]="rbStack != 'normal'" [(ngModel)]="itemFromPanel.levelStrength" class="form-control custom-select" id="strengthSelector"
               name="strengthSelector">
-              <option value="" selected>Fortificação</option>
               <option *ngFor="let level of optionsStrength" [value]="level.value">
-                {{level.value}}
+                {{level.name}}
               </option>
             </select>
           </div>
