@@ -9,7 +9,7 @@ import { ItemPanel } from '../models/item-panel';
 })
 export class ItemService {
 
-  url = 'http://localhost:8090/api/v1/item';
+  url = 'http://26.163.161.201:8090/api/v1/item';
 
   // Headers
   httpOptions = {

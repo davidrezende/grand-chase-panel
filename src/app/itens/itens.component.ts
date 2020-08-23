@@ -12,59 +12,39 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./itens.component.css']
 })
 export class ItensComponent implements OnInit {
+  //radioButton
   rbStack;
   rbTemporary;
 
-  // rbStack = "normal";
-  // rbTemporary = "perma";
+  //checkbox
+  cbIsEquipment;
+  cbIsAccessory;
 
+  //inputs
+  timeItemInput: number;
+  amountStackInput: number;
+  textAreaItems: string;
+
+  //combobox
+  optionsRarity = [];
+  optionsStrength = [];
+
+  //entities
   itemFromPanel = {} as ItemPanel;
   user = {} as User;
   item = {} as Item;
 
+  //aux
   arrayItems = {} as string[];
-  textAreaItems: string;
-  raritySelect: number;
-  timeItemInput: number;
-  amountStackInput: number;
-
-  optionsRarity = [];
-  optionsStrength = [];
-
-  // optionsRarity = [
-  //   { name: "Raridade", value: -1 },
-  //   { name: "Normal", value: 0 },
-  //   { name: "Raro", value: 1 },
-  //   { name: "Épico", value: 2 },
-  //   { name: "Lendário", value: 3 }
-  // ]
-
-  // optionsStrength = [
-  //   { name: "Fortificação", value: -1 },
-  //   { name: "Nível 1", value: 1 },
-  //   { name: "Nível 2", value: 2 },
-  //   { name: "Nível 3", value: 3 },
-  //   { name: "Nível 4", value: 4 },
-  //   { name: "Nível 5", value: 5 },
-  //   { name: "Nível 6", value: 6 },
-  //   { name: "Nível 7", value: 7 },
-  //   { name: "Nível 8", value: 8 },
-  //   { name: "Nível 9", value: 9 },
-  //   { name: "Nível 10", value: 10 },
-  //   { name: "Nível 11", value: 11 },
-  //   { name: "Nível 12", value: 12 },
-  //   { name: "Nível 13", value: 13 },
-  //   { name: "Nível 14", value: 14 },
-  //   { name: "Nível 15", value: 15 },
-  //   { name: "Nível 16", value: 16 },
-  //   { name: "Nível 17", value: 17 }
-  // ]
 
   constructor(private userService: UserService, private itemService: ItemService) { }
 
   ngOnInit() {
     this.rbStack = "normal";
     this.rbTemporary = "perma";
+
+    this.cbIsEquipment = true;
+    this.cbIsAccessory = false;
 
     this.itemFromPanel = { levelStrength: -1 } as ItemPanel;
     this.item = { gradeID: -1 } as Item;
@@ -101,18 +81,13 @@ export class ItensComponent implements OnInit {
   }
 
   findUserByLogin(form: NgForm) {
-    // this.userService.findUserByLogin(this.user.login).subscribe((user: User) => {
-    //   this.user = user;
-    // })
     this.userService.findUserByLogin(this.user.login).subscribe(
       resultado => {
         console.log(resultado)
         this.user = resultado;
-        // alert('Jogador ' + this.user.login + ' encontrado!')
       },
       erro => {
         if (erro.status != 200) {
-          // alert('Erro ao buscar jogador.');
           this.cleanForm(form);
         }
       }
@@ -121,6 +96,22 @@ export class ItensComponent implements OnInit {
 
   parseTextArea() {
     this.arrayItems = this.textAreaItems.split("\n");
+  }
+
+  toggleIsEquipment(event) {
+    if (event.target.checked) {
+      this.cbIsEquipment = true;
+    } else {
+      this.cbIsEquipment = false;
+    }
+  }
+
+  toggleIsAcessory(event) {
+    if (event.target.checked) {
+      this.cbIsAccessory = true;
+    } else {
+      this.cbIsAccessory = false;
+    }
   }
 
   newItemFromPanel(form: NgForm) {
@@ -142,6 +133,22 @@ export class ItensComponent implements OnInit {
     this.item.itemID = i;
     this.itemFromPanel.item = this.item;
 
+    console.log("eh acessorio:" + this.cbIsAccessory);
+
+    if (this.cbIsAccessory) {
+      this.itemFromPanel.isAcessory = true;
+    } else {
+      this.itemFromPanel.isAcessory = false;
+    }
+
+    console.log("eh equipamento:" + this.cbIsEquipment);
+
+    if (this.cbIsEquipment) {
+      this.itemFromPanel.isEquipment = true;
+    } else {
+      this.itemFromPanel.isEquipment = false;
+    }
+
     if (this.rbTemporary == "temporary") {
       this.itemFromPanel.timeItem = this.timeItemInput;
     } else {
@@ -151,7 +158,7 @@ export class ItensComponent implements OnInit {
     if (this.rbStack == "carga") {
       this.itemFromPanel.amountStack = this.amountStackInput;
     } else {
-      this.itemFromPanel.levelStrength = -1; //reset value fortify
+      //  this.itemFromPanel.levelStrength = -1; //reset value fortify
       this.itemFromPanel.amountStack = undefined; //reset value stack
     }
 
@@ -177,68 +184,6 @@ export class ItensComponent implements OnInit {
     );
 
   }
-
-  // oldsendDateFromInsertItem(form: NgForm) {
-  //   this.item.loginUID = this.user.loginUID;
-  //   this.itemFromPanel.item = this.item;
-
-  //   console.log("Qtd itens na lista:" + this.arrayItems.length + "  Lista de itens a ser inserida:", this.arrayItems)
-
-
-
-  //   if (!this.validateNewItem()) {
-  //     return;
-  //   }
-  //   console.log("Objeto a ser inserido:", this.itemFromPanel)
-
-  //   this.itemService.newItemFromPanel(this.itemFromPanel).subscribe(
-  //     resultado => {
-  //       console.log(resultado)
-  //       this.itemFromPanel = resultado;
-  //       alert('Item ' + this.itemFromPanel.item.itemID + ' inserido ao jogador ' + this.user.login + ' com sucesso!')
-  //       this.cleanFormSucess(form);
-  //     },
-  //     erro => {
-  //       if (erro.status != 200) {
-  //         alert('Erro ao inserir item!');
-  //         this.cleanForm(form);
-  //       }
-  //     }
-  //   );
-
-
-  //   // this.itemFromPanel.levelStrength =
-  // }
-
-  //   if (this.user.loginUID !== undefined) {
-  //     this.itemService.newItemFromPanel(this.user).subscribe(() => {
-  //       this.cleanForm(form);
-  //     });
-  //   } else {
-  //     // this.userService.saveUser(this.user).subscribe(() => {
-  //     // this.cleanForm(form);
-  //     // });
-  //     this.userService.saveUser(this.user).subscribe(
-  //       resultado => {
-  //         console.log(resultado)
-  //         alert('Jogador ' + this.user.login + ' salvo com sucesso')
-  //         this.cleanForm(form);
-  //       },
-  //       erro => {
-  //         if(erro.status != 200) {
-  //           alert('Erro ao salvar novo jogador.');
-  //         }
-  //       }
-  //     );
-  //   }
-  // }
-
-  // print() {
-  //   this.raritySelect = this.selectedOption;
-  //   console.log("My input: ", this.selectedOption);
-  // }
-
-
 
   validateNewItem() {
 

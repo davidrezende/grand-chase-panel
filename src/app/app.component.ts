@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OktaAuthService } from '@okta/okta-angular';
+// import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +10,13 @@ export class AppComponent implements OnInit {
   title = 'notes';
   isAuthenticated: boolean;
 
-  constructor(public oktaAuth: OktaAuthService) {
+  constructor() {
   }
 
   async ngOnInit() {
-    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
-    this.oktaAuth.$authenticationState.subscribe(
-      (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
-    );
+    // this.isAuthenticated = await this.oktaAuth.isAuthenticated();
+    // this.oktaAuth.$authenticationState.subscribe(
+    //   (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
+    // );
   }
 }
