@@ -68,7 +68,9 @@
 
     <div class="nav-scroller bg-white shadow-sm">
       <nav class="nav nav-underline">
-        <a class="nav-link active" href="#">Dashboard</a>
+        <a class="nav-link active" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a class="nav-link active" routerLink="/player" routerLinkActive="active">Adicionar Jogador</a>
+        <a class="nav-link active" routerLink="/item" routerLinkActive="active">Adicionar Itens</a>
         <!-- <a class="nav-link" href="#">
           Amigos
           <span class="badge badge-pill bg-light align-text-bottom">27</span>
@@ -119,9 +121,7 @@
           <a href="#">Todas atualizações</a>
         </small>
       </div> -->
-
-        <app-users></app-users>
-        <app-itens></app-itens>
+      <router-outlet></router-outlet>
       <!-- <div class="my-3 p-3 bg-white rounded shadow-sm">
         <h6 class="border-bottom border-gray pb-2 mb-0">Sugestões</h6>
         <div class="media text-muted pt-3">

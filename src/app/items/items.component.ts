@@ -7,11 +7,11 @@ import { Item } from '../models/item';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-itens',
-  templateUrl: './itens.component.html',
-  styleUrls: ['./itens.component.css']
+  selector: 'app-items',
+  templateUrl: './items.component.html',
+  styleUrls: ['./items.component.css']
 })
-export class ItensComponent implements OnInit {
+export class ItemsComponent implements OnInit {
   //radioButton
   rbStack;
   rbTemporary;

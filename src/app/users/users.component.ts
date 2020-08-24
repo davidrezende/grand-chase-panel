@@ -11,13 +11,14 @@ import { NgForm } from '@angular/forms';
 export class UsersComponent implements OnInit {
 
   user = {} as User;
+  lastRegisterUser = {} as User;
   users: User[];
   sexSelected: string = '';
+
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.getUsers();
   }
 
   selectChangeHandler(event: any) {
@@ -46,6 +47,8 @@ export class UsersComponent implements OnInit {
         resultado => {
           console.log(resultado)
           alert('Jogador ' + this.user.login + ' salvo com sucesso')
+          this.lastRegisterUser = resultado;
+          // this.getUserRegistered();
           this.cleanForm(form);
         },
         erro => {
@@ -57,16 +60,17 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  getUsers() {
-    this.userService.getUsers().subscribe((users: User[]) => {
-      this.users = users;
+  getUserRegistered() {
+    this.userService.findUserByLogin(this.user.login).subscribe((userReg : User) => {
+      this.lastRegisterUser = userReg;
+      console.log("Usuario inserido buscado: " + this.lastRegisterUser.login);
     });
   }
 
   cleanForm(form: NgForm) {
-    this.getUsers();
     form.resetForm();
     this.user = {} as User;
+    console.log("Usuario inserido buscado dps do clean: " + this.lastRegisterUser.login);
   }
 
 }
