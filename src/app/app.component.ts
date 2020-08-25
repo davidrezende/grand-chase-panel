@@ -7,13 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'notes';
+  title = 'GC Panel';
   isAuthenticated: boolean;
 
   constructor() {
   }
 
   async ngOnInit() {
+    this.isAuthenticated = true;
     // this.isAuthenticated = await this.oktaAuth.isAuthenticated();
     // this.oktaAuth.$authenticationState.subscribe(
     //   (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated

@@ -1,9 +1,11 @@
+
+
 <div class="my-3 p-3 bg-white rounded shadow-sm">
-  <h6 class="border-bottom border-gray pb-2 mb-0">Adicionar novo item para jogador <small>( Add new item for player
+  <h6 class="border-bottom border-gray pb-2 mb-0">Adicionar item ao jogador<small> ( Add item for this player
       )</small></h6>
   <div class="text-muted pt-3">
 
-    <div class="form-group col-md-6">
+    <!-- <div class="form-group col-md-6">
       <h6>Pesquisar jogador por login</h6>
       <form id="form-detail-user" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
         <div class="form-row">
@@ -35,7 +37,6 @@
                 <tr>
                   <td><strong>Atividade</strong></td>
                   <td>{{user.connecting}}</td>
-                  <!-- <td><button type="submit" class="btn btn-primary">Salvar</button></td> -->
                 </tr>
               </table>
             </div>
@@ -43,14 +44,11 @@
         </div>
       </form>
     </div>
-  </div>
+  </div> -->
 
   <div *ngIf="user.loginUID" id="div-add-item" name="div-add-item">
 
-    <hr>
-    <div class="text-muted pt-3">
       <form id="form-item-panel" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-        <h6>Inserir itens para o jogador <strong> {{user.login | titlecase}} </strong></h6>
         <div class="form-row">
           <div class="form-group col-md-2">
             <!-- <input [disabled]="cbVariousItems.checked" [(ngModel)]="item.itemID" type="number" class="form-control" id="itemInput" name="itemInput"
@@ -178,7 +176,5 @@
 
 
       </form>
-    </div>
-  </div>
 
 </div>

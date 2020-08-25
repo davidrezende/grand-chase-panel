@@ -40,6 +40,13 @@ export class ItemsComponent implements OnInit {
   constructor(private userService: UserService, private itemService: ItemService) { }
 
   ngOnInit() {
+
+    //TEST
+
+    // this.user.login = "adfafad";
+    this.user.loginUID = 123123;
+
+
     this.rbStack = "normal";
     this.rbTemporary = "perma";
 

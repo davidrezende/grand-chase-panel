@@ -1,0 +1,58 @@
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <h6 class="border-bottom border-gray pb-2 mb-0">Gerenciamento de player<small> ( Management of player
+      )</small></h6>
+  <div class="text-muted pt-3">
+    <div class="form-group col-md-6">
+      <h6>Pesquisar jogador por login</h6>
+      <form id="form-detail-user" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+
+            <input type="text" [(ngModel)]="user.login" id="loginInput" name="loginInput" #model="ngModel" required
+              class="form-control" [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+              placeholder="Login do jogador">
+            <div *ngIf="f.submitted && model.invalid" class="invalid-feedback">
+              <div *ngIf="model.errors.required">Login é obrigatório</div>
+            </div>
+
+          </div>
+          <div class="form-group col-md-4">
+            <button type="submit" class="btn btn-primary" (click)="findUserByLogin(f)">Pesquisar</button>
+          </div>
+
+          <div class="form-row col-md-8">
+            <div class="table-responsive">
+              <table class="table">
+                <tr>
+                  <td><strong>UID</strong></td>
+                  <td>{{user.loginUID}}</td>
+                </tr>
+                <tr>
+                  <td><strong>Login</strong></td>
+                  <td>{{user.login}}</td>
+                </tr>
+                <tr>
+                  <td><strong>Atividade</strong></td>
+                  <td>{{user.connecting}}</td>
+                  <!-- <td><button type="submit" class="btn btn-primary">Salvar</button></td> -->
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <app-characteres></app-characteres>
+        </div>
+        <div class="col-md-6">
+          <app-coins></app-coins>
+        </div>
+      </div>
+    </div>
+    <app-items></app-items>
+
+  </div>
+</div>
