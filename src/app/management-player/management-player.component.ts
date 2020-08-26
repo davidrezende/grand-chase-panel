@@ -22,14 +22,17 @@ export class ManagementPlayerComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.child.user.login = "aaaaa";
+    this.child.user = this.user;
   }
 
   findUserByLogin(form: NgForm) {
-    this.userService.findUserByLogin(this.user.login).subscribe(
+    var login = this.user.login;
+    this.cleanForm(form);
+    this.userService.findUserByLogin(login).subscribe(
       resultado => {
         console.log(resultado)
         this.user = resultado;
+        this.child.user = this.user;
       },
       erro => {
         if (erro.status != 200) {

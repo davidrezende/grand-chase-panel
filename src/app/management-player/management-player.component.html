@@ -45,14 +45,19 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
+          <div *ngIf="user.loginUID" id="div-characteres" name="div-characteres">
           <app-characteres></app-characteres>
         </div>
-        <div class="col-md-6">
+      </div>
+      <div class="col-md-6">
+        <div *ngIf="user.loginUID" id="div-coins" name="div-coins">
           <app-coins></app-coins>
         </div>
       </div>
     </div>
-    <app-items></app-items>
-
   </div>
+  <div *ngIf="user.loginUID" id="div-add-item" name="div-add-item">
+    <app-items></app-items>
+  </div>
+</div>
 </div>

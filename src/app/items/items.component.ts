@@ -44,7 +44,6 @@ export class ItemsComponent implements OnInit {
     //TEST
 
     // this.user.login = "adfafad";
-    this.user.loginUID = 123123;
 
 
     this.rbStack = "normal";
