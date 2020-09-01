@@ -12,8 +12,8 @@
                   <div class="form-group col-md-12">
                     <h6>Personagem</h6>
                     <select class="form-control custom-select" id="characterSelector" name="characterSelector">
-                      <option *ngFor="let character of optionsCharacteres" [value]="character.value">
-                        {{character.name}}
+                      <option *ngFor="let character of userChars | keyvalue" [value]="character.value">
+                        {{character.key}}
                       </option>
                     </select>
                   </div>
@@ -32,12 +32,11 @@
               <div class="form-group col-md-12">
                 <h6>Classe</h6>
                 <select class="form-control custom-select" id="classesSelector" name="classesSelector">
-                  <option *ngFor="let classes of optionsClasses" [value]="classes.value">
+                  <option *ngFor="let classes of classes" [value]="classes.value">
                     {{classes.name}}
                   </option>
                 </select>
               </div>
-
             </fieldset>
 
           </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { ItemService } from '../services/item.service';
 import { User } from '../models/user';
@@ -12,6 +12,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./items.component.css']
 })
 export class ItemsComponent implements OnInit {
+  @Input() userFounded: User;
   //radioButton
   rbStack;
   rbTemporary;
@@ -120,8 +121,18 @@ export class ItemsComponent implements OnInit {
     }
   }
 
+  initUserInfo(){
+    this.user = this.userFounded;
+  }
+
   newItemFromPanel(form: NgForm) {
+    console.log("usuario do compo");
+    console.log(this.user);
     console.log(this.arrayItems)
+
+    console.log("Adicionando objeto usuario");
+    this.initUserInfo();
+    console.log(this.userFounded);
 
     if (this.arrayItems != undefined && this.arrayItems.length > 0) {
       this.arrayItems.forEach(i => {

@@ -46,7 +46,7 @@
       <div class="row">
         <div class="col-md-6">
           <div *ngIf="user.loginUID" id="div-characteres" name="div-characteres">
-          <app-characteres></app-characteres>
+          <app-characteres [userFounded]="user"></app-characteres>
         </div>
       </div>
       <div class="col-md-6">
@@ -57,7 +57,7 @@
     </div>
   </div>
   <div *ngIf="user.loginUID" id="div-add-item" name="div-add-item">
-    <app-items></app-items>
+    <app-items [userFounded]="user" ></app-items>
   </div>
 </div>
 </div>

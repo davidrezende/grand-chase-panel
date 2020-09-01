@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { Character } from '../models/character';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,14 @@ export class CharacterService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getCharactersPlayer(loginUID: number): Observable<Character[]> {
+    console.log("Listando todos os personagens do usuário com o loginUID::" + loginUID);
+    return this.httpClient.get<Character[]>(this.url + '/findCharacters/loginUID/' + loginUID, this.httpOptions)
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
 
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
