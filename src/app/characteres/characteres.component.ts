@@ -60,20 +60,23 @@ export class CharacteresComponent implements OnInit {
     this.charService.getCharactersPlayer(this.user.loginUID).subscribe(
       resultado => {
         console.log(resultado);
-        this.chars = resultado;
-        this.chars.forEach(charRes => {
-          this.charsList.forEach((value: number, key: string) => {
-            if (charRes.charType == value) {
-              this.userChars.set((key), (value));
-              console.log(this.userChars);
-            }
-          });
+        if (resultado != undefined || resultado != null) {
+          this.chars = resultado;
+          this.chars.forEach(charRes => {
+            this.charsList.forEach((value: number, key: string) => {
+              if (charRes.charType == value) {
+                this.userChars.set((key), (value));
+                console.log(this.userChars);
+              }
+            });
+          })
+        } else {
+          console.log("Problema ao recuperar personagens.");
         }
-        )
       },
       erro => {
         if (erro.status != 200) {
-          console.log("Problema ao recuperar personagens.");
+          console.log("Servico Indisponivel.");
           // this.cleanForm(form);
         }
       }
@@ -81,7 +84,7 @@ export class CharacteresComponent implements OnInit {
 
   }
 
-  updateCharacters() {
+  updateCharacter() {
     this.initUserInfo();
     this.updateCharacterPlayer.loginUID = this.user.loginUID;
     this.updateCharacterPlayer.exps4 = this.experienceUpdate;
@@ -89,9 +92,9 @@ export class CharacteresComponent implements OnInit {
     this.charService.updateCharacterPlayer(this.updateCharacterPlayer).subscribe(
       resultado => {
         console.log(resultado);
-        if(resultado != undefined || resultado != null){
+        if (resultado != undefined || resultado != null) {
           alert('Sucesso ao atualizar personagem!');
-        }else{
+        } else {
           console.log("Problema ao atualizar personagem.");
         }
       },

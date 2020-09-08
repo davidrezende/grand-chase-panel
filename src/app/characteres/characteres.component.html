@@ -20,8 +20,8 @@
 
                   <hr>
                   <div class="col-9">
-                    <input [(ngModel)]="experienceUpdate" class="form-control" type="text" name="exp" id="gridRadios1"
-                      value="" placeholder="( EXP )">
+                    <input [(ngModel)]="experienceUpdate" class="form-control" type="number" name="exp" id="gridRadios1"
+                      value="" placeholder="( EXP )" maxlength="11" max=11 >
                   </div>
                 </div>
               </div>
@@ -42,7 +42,7 @@
           </div>
 
           <div class="form-group col-md-4">
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-primary" (click)="updateCharacter()">Enviar</button>
           </div>
 
         </form>
