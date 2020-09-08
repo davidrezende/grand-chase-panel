@@ -14,6 +14,8 @@ export class CharacteresComponent implements OnInit {
   @Input() userFounded: User;
 
   user = {} as User;
+  updateCharacterPlayer = {} as Character;
+
   chars = {} as Character[];
   charsList = new Map([
     ["Elesis", 0],
@@ -34,7 +36,7 @@ export class CharacteresComponent implements OnInit {
   classes = [];
   playerClasses = [];
 
-  experience: number;
+  experienceUpdate: number;
 
   constructor(private charService: CharacterService) { }
 
@@ -71,7 +73,31 @@ export class CharacteresComponent implements OnInit {
       },
       erro => {
         if (erro.status != 200) {
-          console.log("deu ruim");
+          console.log("Problema ao recuperar personagens.");
+          // this.cleanForm(form);
+        }
+      }
+    );
+
+  }
+
+  updateCharacters() {
+    this.initUserInfo();
+    this.updateCharacterPlayer.loginUID = this.user.loginUID;
+    this.updateCharacterPlayer.exps4 = this.experienceUpdate;
+
+    this.charService.updateCharacterPlayer(this.updateCharacterPlayer).subscribe(
+      resultado => {
+        console.log(resultado);
+        if(resultado != undefined || resultado != null){
+          alert('Sucesso ao atualizar personagem!');
+        }else{
+          console.log("Problema ao atualizar personagem.");
+        }
+      },
+      erro => {
+        if (erro.status != 200) {
+          console.log("Servico indisponivel.");
           // this.cleanForm(form);
         }
       }

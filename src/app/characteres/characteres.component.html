@@ -11,7 +11,7 @@
 
                   <div class="form-group col-md-12">
                     <h6>Personagem</h6>
-                    <select class="form-control custom-select" id="characterSelector" name="characterSelector">
+                    <select class="form-control custom-select" id="characterSelector" name="characterSelector" [(ngModel)]="updateCharacterPlayer.charType">
                       <option *ngFor="let character of userChars | keyvalue" [value]="character.value">
                         {{character.key}}
                       </option>
@@ -20,7 +20,7 @@
 
                   <hr>
                   <div class="col-9">
-                    <input [(ngModel)]="experience" class="form-control" type="text" name="exp" id="gridRadios1"
+                    <input [(ngModel)]="experienceUpdate" class="form-control" type="text" name="exp" id="gridRadios1"
                       value="" placeholder="( EXP )">
                   </div>
                 </div>
@@ -31,7 +31,7 @@
             <fieldset>
               <div class="form-group col-md-12">
                 <h6>Classe</h6>
-                <select class="form-control custom-select" id="classesSelector" name="classesSelector">
+                <select class="form-control custom-select" id="classesSelector" name="classesSelector" [(ngModel)]="updateCharacterPlayer.promotion">
                   <option *ngFor="let classes of classes" [value]="classes.value">
                     {{classes.name}}
                   </option>

@@ -27,6 +27,16 @@ export class CharacterService {
       )
   }
 
+  updateCharacterPlayer(updateCharacter : Character): Observable<Character[]> {
+    console.log("Atualizando personagem " + updateCharacter.charType + " do usuário com o loginUID::" + updateCharacter.loginUID);
+    console.log("Dados a serem atualizados - EXP::" + updateCharacter.exps4 + " | " + "Promotion::" + updateCharacter.promotion);
+    return this.httpClient.post<Character[]>(this.url + '/updateCharacter', updateCharacter, this.httpOptions)
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
