@@ -71,12 +71,12 @@ export class CharacteresComponent implements OnInit {
             });
           })
         } else {
-          console.log("Problema ao recuperar personagens.");
+          alert("Problema ao recuperar personagens.");
         }
       },
       erro => {
         if (erro.status != 200) {
-          console.log("Servico Indisponivel.");
+          alert("Servico Indisponivel.");
           // this.cleanForm(form);
         }
       }
@@ -95,12 +95,12 @@ export class CharacteresComponent implements OnInit {
         if (resultado != undefined || resultado != null) {
           alert('Sucesso ao atualizar personagem!');
         } else {
-          console.log("Problema ao atualizar personagem.");
+          alert("Problema ao atualizar personagem.");
         }
       },
       erro => {
         if (erro.status != 200) {
-          console.log("Servico indisponivel.");
+          alert("Servico indisponivel.");
           // this.cleanForm(form);
         }
       }

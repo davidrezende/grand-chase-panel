@@ -7,12 +7,12 @@
       <div class="form-row">
         <div class="row">
           <div class="form-group col-md-6">
-            <input class="form-control" type="text" name="cash" id="cash" value="" placeholder="( Cash )">
+            <input [(ngModel)]="vpQuantity.vcPoint" class="form-control" type="number" name="vp" id="vp" value="" placeholder="( VP )">
           </div>
           <div class="form-row">
             <div class="col-md-4">
               <div class="form-group col-md-4">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-primary" (click)="sendVPUser(f)">Enviar</button>
               </div>
             </div>
           </div>

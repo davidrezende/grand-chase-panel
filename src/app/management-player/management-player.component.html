@@ -17,7 +17,7 @@
 
           </div>
           <div class="form-group col-md-4">
-            <button type="submit" class="btn btn-primary" (click)="findUserByLogin(f)">Pesquisar</button>
+            <button type="submit" class="btn btn-primary" (click)="findDetailsUserByLogin(f)">Pesquisar</button>
           </div>
 
           <div class="form-row col-md-8">
@@ -32,9 +32,13 @@
                   <td>{{user.login}}</td>
                 </tr>
                 <tr>
+                  <td><strong>VP ( CASH )</strong></td>
+                  <td>{{vpInfo.vcPoint}}</td>
+                </tr>
+                <tr>
                   <td><strong>Atividade</strong></td>
-                  <td>{{user.connecting}}</td>
-                  <!-- <td><button type="submit" class="btn btn-primary">Salvar</button></td> -->
+                  <td>
+                    {{user.connecting == 0 ? 'Offline' : user.connecting == 1 ? 'Online' : ''}}</td>
                 </tr>
               </table>
             </div>
@@ -51,7 +55,7 @@
       </div>
       <div class="col-md-6">
         <div *ngIf="user.loginUID" id="div-coins" name="div-coins">
-          <app-coins></app-coins>
+          <app-coins [userFounded]="user" ></app-coins>
         </div>
       </div>
     </div>

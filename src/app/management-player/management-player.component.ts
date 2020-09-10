@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
-import { ItemsComponent } from '../items/items.component';
 import { User } from '../models/user';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { CharacteresComponent } from '../characteres/characteres.component';
+import { CoinService } from '../services/coin.service';
+import { VirtualCash } from '../models/virtual-cash';
 
 @Component({
   selector: 'app-management-player',
@@ -13,35 +13,55 @@ import { CharacteresComponent } from '../characteres/characteres.component';
 export class ManagementPlayerComponent {
 
   user = {} as User;
-  // @ViewChild(ItemsComponent) childItem : ItemsComponent;
-  // @ViewChild(CharacteresComponent) childChar : CharacteresComponent;
-  constructor(private userService: UserService) { }
-
+  vpInfo = {} as VirtualCash;
+  constructor(private userService: UserService, private coinService: CoinService) { }
 
   ngOnInit() {
   }
 
-  // ngAfterViewInit() {
-  //   this.childItem.user = this.user;
-  //   this.childChar.user = this.user;
-  // }
-
-  findUserByLogin(form: NgForm) {
+  async findDetailsUserByLogin(form: NgForm) {
     var login = this.user.login;
-    this.cleanForm(form);
-    this.userService.findUserByLogin(login).subscribe(
-      resultado => {
-        console.log("cheguei aq no sucesso mlk")
-        console.log(resultado)
-        this.user = resultado;
-        console.log("Usuario: " + this.user);
-      },
-      erro => {
-        if (erro.status != 200) {
-          this.cleanForm(form);
+    // this.cleanForm(form);
+
+    await this.userService.afindUserByLogin(login).then(resultado => {
+      console.log(resultado);
+      this.user = resultado;
+      console.log("Usuario:");
+      console.log(this.user);
+    });
+
+    // this.userService.findUserByLogin(login).subscribe(
+    //   resultado => {
+    //     console.log(resultado);
+    //     this.user = resultado;
+    //     console.log("Usuario:");
+    //     console.log(this.user);
+    //   },
+    //   erro => {
+    //     if (erro.status != 200) {
+    //       this.cleanForm(form);
+    //     }
+    //   }
+    // );
+
+    console.log("loginUID:::::" + this.user.loginUID );
+
+
+    if (this.user.loginUID != undefined || this.user.loginUID != null) {
+      this.coinService.getVPUser(this.user.loginUID).subscribe(
+        resultado => {
+          this.vpInfo = resultado;
+          console.log("VP: " + resultado.vcPoint);
+        },
+        erro => {
+          if (erro.status != 200) {
+            alert('Servico indisponivel.');
+            this.cleanForm(form);
+            return;
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   cleanForm(form: NgForm) {

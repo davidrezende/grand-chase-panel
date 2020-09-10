@@ -30,6 +30,11 @@ export class UserService {
       )
   }
 
+
+  async afindUserByLogin(login: string) {
+    return  await this.httpClient.get<User>(this.url + '/find/login/' + login, this.httpOptions).toPromise();
+  }
+
   getUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(this.url + '/listAll')
       .pipe(

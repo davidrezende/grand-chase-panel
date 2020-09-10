@@ -161,8 +161,11 @@
           </div>
 
           <div class="form-group col-md-2">
-            <select [disabled]="rbStack != 'normal'" [(ngModel)]="itemFromPanel.levelStrength"
+            <h6>( Em Manutenção )</h6>
+            <select disabled [(ngModel)]="itemFromPanel.levelStrength"
               class="form-control custom-select" id="strengthSelector" name="strengthSelector">
+            <!-- <select [disabled]="rbStack != 'normal'" [(ngModel)]="itemFromPanel.levelStrength"
+              class="form-control custom-select" id="strengthSelector" name="strengthSelector"> -->
               <option *ngFor="let level of optionsStrength" [value]="level.value">
                 {{level.name}}
               </option>
