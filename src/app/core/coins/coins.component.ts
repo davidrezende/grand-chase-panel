@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { VirtualCash } from '../models/virtual-cash';
-import { User } from '../models/user';
-import { CoinService } from '../services/coin.service';
+import { VirtualCash } from '../../models/virtual-cash';
+import { User } from '../../models/user';
+import { CoinService } from '../../services/coin.service';
 import { NgForm } from '@angular/forms';
 
 @Component({

@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
-import { User } from '../models/user';
+import { User } from '../../models/user';
 import { NgForm } from '@angular/forms';
-import { UserService } from '../services/user.service';
-import { CoinService } from '../services/coin.service';
-import { VirtualCash } from '../models/virtual-cash';
+import { UserService } from '../../services/user.service';
+import { CoinService } from '../../services/coin.service';
+import { VirtualCash } from '../../models/virtual-cash';
 
 @Component({
   selector: 'app-management-player',

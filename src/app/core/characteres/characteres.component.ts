@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../models/user';
-import { Character } from '../models/character';
-import { CharacterService } from '../services/character.service';
+import { User } from '../../models/user';
+import { Character } from '../../models/character';
+import { CharacterService } from '../../services/character.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -26,7 +26,8 @@ export class CharacteresComponent implements OnInit {
     ["Ronan", 5],
     ["Amy", 6],
     ["Jin", 7],
-    ["Sieghart", 8]
+    ["Sieghart", 8],
+    ["Mari", 9]
   ])
 
   userChars = new Map();

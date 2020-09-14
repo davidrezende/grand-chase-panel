@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserService } from '../services/user.service';
-import { ItemService } from '../services/item.service';
-import { User } from '../models/user';
-import { ItemPanel } from '../models/item-panel';
-import { Item } from '../models/item';
+import { UserService } from '../../services/user.service';
+import { ItemService } from '../../services/item.service';
+import { User } from '../../models/user';
+import { ItemPanel } from '../../models/item-panel';
+import { Item } from '../../models/item';
 import { NgForm } from '@angular/forms';
 
 @Component({

@@ -1,31 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { UsersComponent } from './users/users.component';
 import { FormsModule } from '@angular/forms';
-import { ItemsComponent } from './items/items.component';
+import { SecutiryModule } from './security/security.module'
 import { HttpClientModule } from '@angular/common/http';
-import { LoginComponent } from './login/login.component';
-import { CharacteresComponent } from './characteres/characteres.component';
-import { ManagementPlayerComponent } from './management-player/management-player.component';
-import { CoinsComponent } from './coins/coins.component';
-
+import { LoginComponent } from './security/login/login.component';
+import { UsersComponent } from './core/users/users.component';
+import { CoinsComponent } from './core/coins/coins.component';
+import { CharacteresComponent } from './core/characteres/characteres.component';
+import { ManagementPlayerComponent } from './core/management-player/management-player.component';
+import { ItemsComponent } from './core/items/items.component';
+import { CoreModule } from './core/core.module';
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent,
-    ItemsComponent,
-    LoginComponent,
-    CharacteresComponent,
-    ManagementPlayerComponent,
-    CoinsComponent,
+    // LoginComponent,
+    // UsersComponent,
+    // CharacteresComponent,
+    // CoinsComponent,
+    // ManagementPlayerComponent,
+    // ItemsComponent,
   ],
   imports: [
+    CoreModule,
     BrowserModule,
     AppRoutingModule,
+    SecutiryModule,
     NgbModule,
     FormsModule,
     HttpClientModule
