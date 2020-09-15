@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Signin Template for Bootstrap</title>
+    <title>Grand Chase Panel - By Haruhashi</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
 
@@ -20,20 +20,25 @@
 
   <body class="text-center">
     <!-- {{ auth.jwtPayload | json}} -->
-    <form class="form-signin">
-      <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-      <h1 class="h3 mb-3 font-weight-normal">Por favor, logue-se</h1>
+    <form class="form-signin" #f="ngForm">
+      <img class="mb-4" src="../../../assets/images/SEKAI_GC.png" alt="" width="250" height="150">
+      <h1 class="h3 mb-3 font-weight-normal">Identifique-se</h1>
       <label for="inputEmail" class="sr-only">Login</label>
-      <input type="text" name = "inputUser" id="inputUser" class="form-control" placeholder="Login" ngModel required autofocus #inputPassword>
+      <input type="text" name = "inputUser" id="inputUser" class="form-control" placeholder="Login" [(ngModel)]="username" ngModel required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" ngModel required #inputUser>
+      <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" [(ngModel)]="password"  ngModel required>
       <div class="checkbox mb-3">
-        <label>
+        <!-- <label>
           <input type="checkbox" value="remember-me"> Lembrar-me
-        </label>
+        </label> -->
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit"   (click)="login(inputUser.value, inputPassword.value)">Entrar</button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+      <button class="btn btn-lg btn-primary btn-block" type="submit"   (click)="login(f)">Entrar</button>
+      <p class="mt-5 mb-3 text-muted">Sekai Corp &copy; 2020</p>
+      <p class="mt-5 mb-3 text-muted">made with
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+        </svg>
+       by Haruhashi</p>
     </form>
   </body>
 </html>

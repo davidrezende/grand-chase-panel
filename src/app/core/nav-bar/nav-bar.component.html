@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+  <a class="navbar-brand mr-auto mr-lg-0" href="#">Grand Chase Panel</a>
+</nav>
+
+
+
+<div class="nav-scroller bg-white shadow-sm">
+  <nav class="nav nav-underline">
+    <!-- <a class="nav-link active" routerLink="/dashboard" routerLinkActive="active">Dashboard</a> -->
+    <a class="nav-link active" routerLink="/player" routerLinkActive="active">Adicionar Jogador</a>
+    <a class="nav-link active" routerLink="/managementPlayer" routerLinkActive="active">Gerenciar Jogador</a>
+    <!-- <a class="nav-link active" routerLink="/item" routerLinkActive="active">Adicionar Itens</a> -->
+    <!-- <a class="nav-link active" routerLink="/characteres" routerLinkActive="active">Gerenciar Personagens</a> -->
+  </nav>
+</div>
+
+<main role="main" class="container">
+  <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow-sm">
+    <!-- <img class="mr-3" src="../../assets/brand/bootstrap-outline.svg" alt="" width="48" height="48"> -->
+    <div class="lh-100">
+      <h6 class="mb-0 text-white lh-100">Bem-vindo de volta, <strong>{{ auth.jwtPayload?.name }}</strong>!</h6>
+      <small>Painel - Grand Chase Sekai.</small>
+    </div>
+  </div>
+</main>
+
+
+
+
+

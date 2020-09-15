@@ -4,6 +4,7 @@ body {
 }
 
 body {
+  /* background-image: url("https://i.stack.imgur.com/LCCB6.jpg"); */
   display: -ms-flexbox;
   display: -webkit-box;
   display: flex;

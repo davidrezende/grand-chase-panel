@@ -46,22 +46,22 @@
         </div>
       </form>
     </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <div *ngIf="user.loginUID" id="div-characteres" name="div-characteres">
-          <app-characteres [userFounded]="user"></app-characteres>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div *ngIf="user.loginUID" id="div-coins" name="div-coins">
-          <app-coins [userFounded]="user" ></app-coins>
-        </div>
-      </div>
-    </div>
-  </div>
   <div *ngIf="user.loginUID" id="div-add-item" name="div-add-item">
     <app-items [userFounded]="user" ></app-items>
   </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div *ngIf="user.loginUID" id="div-characteres" name="div-characteres">
+        <app-characteres [userFounded]="user"></app-characteres>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div *ngIf="user.loginUID" id="div-coins" name="div-coins">
+        <app-coins [userFounded]="user" ></app-coins>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 </div>

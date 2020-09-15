@@ -21,9 +21,9 @@ export class ManagementPlayerComponent {
 
   async findDetailsUserByLogin(form: NgForm) {
     var login = this.user.login;
-    // this.cleanForm(form);
+    this.cleanForm(form);
 
-    await this.userService.afindUserByLogin(login).then(resultado => {
+    await this.userService.findUserByLogin(login).then(resultado => {
       console.log(resultado);
       this.user = resultado;
       console.log("Usuario:");
@@ -55,7 +55,7 @@ export class ManagementPlayerComponent {
         },
         erro => {
           if (erro.status != 200) {
-            alert('Servico indisponivel.');
+            // alert('Servico indisponivel.');
             this.cleanForm(form);
             return;
           }

@@ -5,14 +5,16 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
+
 
   constructor(private http: HttpClient,
               private jwtHelper: JwtHelperService ) {
                 this.loadToken();
                }
 
-  authTokenUrl = "http://localhost:8090/oauth/token";
+  authTokenUrl = "http://26.163.161.201:8090/oauth/token";
   jwtPayload: any;
 
   login(user: string, password: string): Promise<void> {
@@ -22,10 +24,16 @@ export class AuthService {
     return this.http.post(this.authTokenUrl, body, { headers, withCredentials: true })
       .toPromise()
       .then(response => {
+        console.log(response);
+
         this.stockToken(response['access_token']);
       })
       .catch(response => {
         console.log('Error: ' + JSON.stringify(response['error'].error));
+        console.log(headers);
+        console.log(body);
+        console.log('Error todo: ' + JSON.stringify(response));
+
 
         if (response['error'].error === 'invalid_grant') {
           return Promise.reject('Usuário ou senha inválida!');

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 // import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
@@ -8,13 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'GC Panel';
-  isAuthenticated: boolean;
 
-  constructor() {
+  constructor(
+    private router : Router
+  ) {
+  }
+
+  showNavBar(){
+    return this.router.url !== '/login';
   }
 
   async ngOnInit() {
-    this.isAuthenticated = true;
     // this.isAuthenticated = await this.oktaAuth.isAuthenticated();
     // this.oktaAuth.$authenticationState.subscribe(
     //   (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated

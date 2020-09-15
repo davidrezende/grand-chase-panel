@@ -1,21 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { SecutiryModule } from './security/security.module'
-import { HttpClientModule } from '@angular/common/http';
-import { LoginComponent } from './security/login/login.component';
-import { UsersComponent } from './core/users/users.component';
-import { CoinsComponent } from './core/coins/coins.component';
-import { CharacteresComponent } from './core/characteres/characteres.component';
-import { ManagementPlayerComponent } from './core/management-player/management-player.component';
-import { ItemsComponent } from './core/items/items.component';
 import { CoreModule } from './core/core.module';
+import localePt from '@angular/common/locales/pt';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtHttpInterceptor } from './security/jwt-http-interceptor';
+import { NavBarComponent } from './core/nav-bar/nav-bar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
+    NavBarComponent,
     // LoginComponent,
     // UsersComponent,
     // CharacteresComponent,
@@ -32,7 +31,10 @@ import { CoreModule } from './core/core.module';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {provide: LOCALE_ID , useValue:'pt-BR'},
+    { provide: HTTP_INTERCEPTORS, useClass: JwtHttpInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

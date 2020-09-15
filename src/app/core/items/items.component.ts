@@ -87,9 +87,8 @@ export class ItemsComponent implements OnInit {
 
   }
 
-  findUserByLogin(form: NgForm) {
-    this.userService.findUserByLogin(this.user.login).subscribe(
-      resultado => {
+  async findUserByLogin(form: NgForm) {
+    await this.userService.findUserByLogin(this.user.login).then(resultado => {
         console.log(resultado)
         this.user = resultado;
       },

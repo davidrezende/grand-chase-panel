@@ -22,16 +22,16 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  findUserByLogin(login: string): Observable<User> {
-    return this.httpClient.get<User>(this.url + '/find/login/' + login, this.httpOptions)
-      .pipe(
-        retry(0),
-        catchError(this.handleError)
-      )
-  }
+  // findUserByLogin(login: string): Observable<User> {
+  //   return this.httpClient.get<User>(this.url + '/find/login/' + login, this.httpOptions)
+  //     .pipe(
+  //       retry(0),
+  //       catchError(this.handleError)
+  //     )
+  // }
 
 
-  async afindUserByLogin(login: string) {
+  async findUserByLogin(login: string) {
     return  await this.httpClient.get<User>(this.url + '/find/login/' + login, this.httpOptions).toPromise();
   }
 

@@ -6,6 +6,7 @@ import { CoinsComponent } from './coins/coins.component';
 import { UsersComponent } from './users/users.component';
 import { ItemsComponent } from './items/items.component';
 import { FormsModule } from '@angular/forms';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [

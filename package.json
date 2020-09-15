@@ -26,6 +26,7 @@
     "@oktadev/schematics": "^1.2.1",
     "angular2-jwt": "^0.2.3",
     "bootstrap": "^4.4.1",
+    "bootstrap-icons": "^1.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

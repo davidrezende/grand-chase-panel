@@ -28,10 +28,13 @@ export class UsersComponent implements OnInit {
     console.log(this.user);
   }
 
-  findUserByLogin(login: string) {
-    this.userService.findUserByLogin(login).subscribe((user: User) => {
+  async findUserByLogin(login: string) {
+    // this.userService.findUserByLogin(login).subscribe((user: User) => {
+    //   this.user = user;
+    // })
+    await this.userService.findUserByLogin(login).then(user => {
       this.user = user;
-    })
+    });
   }
 
   saveUser(form: NgForm) {
@@ -60,10 +63,17 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  getUserRegistered() {
-    this.userService.findUserByLogin(this.user.login).subscribe((userReg : User) => {
+  // getUserRegistered() {
+  //   this.userService.findUserByLogin(this.user.login).subscribe((userReg : User) => {
+  //     this.lastRegisterUser = userReg;
+  //     console.log("Usuario inserido buscado: " + this.lastRegisterUser.login);
+  //   });
+  // }
+
+
+  async getUserRegistered() {
+    await this.userService.findUserByLogin(this.user.login).then(userReg => {
       this.lastRegisterUser = userReg;
-      console.log("Usuario inserido buscado: " + this.lastRegisterUser.login);
     });
   }
 
