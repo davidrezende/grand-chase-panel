@@ -49,12 +49,9 @@ export class AuthService {
 
   private loadToken(){
     const token = localStorage.getItem('token');
-
     if(token){
       this.stockToken(token);
     }
-
-
   }
 
   hasPermission(permission: string){

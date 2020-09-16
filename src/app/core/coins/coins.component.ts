@@ -3,6 +3,7 @@ import { VirtualCash } from '../../models/virtual-cash';
 import { User } from '../../models/user';
 import { CoinService } from '../../services/coin.service';
 import { NgForm } from '@angular/forms';
+import { ToastyService} from 'ng2-toasty';
 
 @Component({
   selector: 'app-coins',
@@ -11,7 +12,8 @@ import { NgForm } from '@angular/forms';
 })
 export class CoinsComponent implements OnInit {
 
-  constructor(private coinService: CoinService) { }
+  constructor(private coinService: CoinService,
+              private toasty: ToastyService) { }
 
   @Input() userFounded: User;
   user = {} as User;
@@ -30,7 +32,7 @@ export class CoinsComponent implements OnInit {
     this.vpQuantity.loginUID = this.user.loginUID;
 
     if(this.vpQuantity.vcPoint <= 0 || this.vpQuantity.vcPoint > 9999){
-      alert('Quantidade de VP inválida. \nA quantidade permitida deverá estar compreendida entre 1 ~ 9999');
+      this.toasty.error('Quantidade de VP inválida. \nA quantidade permitida deverá estar compreendida entre 1 ~ 9999');
       return;
     }
 
@@ -39,15 +41,15 @@ export class CoinsComponent implements OnInit {
       resultado => {
         console.log(resultado);
         if (resultado != undefined || resultado != null) {
-          alert('VP adicionado com sucesso!');
+          this.toasty.success('VP adicionado com sucesso!');
           this.cleanForm(form);
         } else {
-          alert("Problema ao adicionar VP.");
+          this.toasty.error("Problema ao adicionar VP.");
         }
       },
       erro => {
         if (erro.status != 200) {
-          alert("Servico indisponivel.");
+          this.toasty.error("VP: Serviço indisponivel.");
         }
       }
     );

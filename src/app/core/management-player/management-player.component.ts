@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { CoinService } from '../../services/coin.service';
 import { VirtualCash } from '../../models/virtual-cash';
+import { ToastyService } from 'ng2-toasty';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Component({
   selector: 'app-management-player',
@@ -14,7 +16,11 @@ export class ManagementPlayerComponent {
 
   user = {} as User;
   vpInfo = {} as VirtualCash;
-  constructor(private userService: UserService, private coinService: CoinService) { }
+  constructor(private userService: UserService,
+    private coinService: CoinService,
+    private toasty: ToastyService,
+    private errorHandlerService: ErrorHandlerService
+  ) { }
 
   ngOnInit() {
   }
@@ -24,10 +30,10 @@ export class ManagementPlayerComponent {
     this.cleanForm(form);
 
     await this.userService.findUserByLogin(login).then(resultado => {
-      console.log(resultado);
+      this.toasty.success("Player '" + login + "' encontrado")
       this.user = resultado;
-      console.log("Usuario:");
-      console.log(this.user);
+    }, error => {
+      this.toasty.error("Player '" + login + "' não encontrado")
     });
 
     // this.userService.findUserByLogin(login).subscribe(
@@ -44,7 +50,7 @@ export class ManagementPlayerComponent {
     //   }
     // );
 
-    console.log("loginUID:::::" + this.user.loginUID );
+    console.log("loginUID:::::" + this.user.loginUID);
 
 
     if (this.user.loginUID != undefined || this.user.loginUID != null) {
@@ -55,9 +61,9 @@ export class ManagementPlayerComponent {
         },
         erro => {
           if (erro.status != 200) {
-            // alert('Servico indisponivel.');
-            this.cleanForm(form);
-            return;
+              this.vpInfo.vcPoint = 0;
+              this.toasty.error("VP: Problema ao obter quantia de VP");
+              return;
           }
         }
       );

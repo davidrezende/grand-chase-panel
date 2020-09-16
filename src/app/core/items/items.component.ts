@@ -5,6 +5,7 @@ import { User } from '../../models/user';
 import { ItemPanel } from '../../models/item-panel';
 import { Item } from '../../models/item';
 import { NgForm } from '@angular/forms';
+import { ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'app-items',
@@ -38,15 +39,13 @@ export class ItemsComponent implements OnInit {
   //aux
   arrayItems = {} as string[];
 
-  constructor(private userService: UserService, private itemService: ItemService) { }
+  constructor(private userService: UserService,
+    private itemService: ItemService,
+    private toasty: ToastyService) {
+
+  }
 
   ngOnInit() {
-
-    //TEST
-
-    // this.user.login = "adfafad";
-
-
     this.rbStack = "normal";
     this.rbTemporary = "perma";
 
@@ -87,11 +86,19 @@ export class ItemsComponent implements OnInit {
 
   }
 
+  getTitle(num: number): string {
+    return 'Countdown: ' + num;
+  }
+
+  getMessage(num: number): string {
+    return 'Seconds left: ' + num;
+  }
+
+
   async findUserByLogin(form: NgForm) {
     await this.userService.findUserByLogin(this.user.login).then(resultado => {
-        console.log(resultado)
-        this.user = resultado;
-      },
+      this.user = resultado;
+    },
       erro => {
         if (erro.status != 200) {
           this.cleanForm(form);
@@ -120,26 +127,23 @@ export class ItemsComponent implements OnInit {
     }
   }
 
-  initUserInfo(){
+  initUserInfo() {
     this.user = this.userFounded;
   }
 
   newItemFromPanel(form: NgForm) {
-    console.log("usuario do compo");
     console.log(this.user);
     console.log(this.arrayItems)
 
-    console.log("Adicionando objeto usuario");
     this.initUserInfo();
     console.log(this.userFounded);
 
     if (this.arrayItems != undefined && this.arrayItems.length > 0) {
       this.arrayItems.forEach(i => {
-        console.log("item do array:" + i);
         this.saveItem(form, i);
       })
     } else {
-      alert("Erro ao inserir item: Id do item inválido.")
+      this.toasty.error("Item: Id do item inválido")
       return;
     }
   }
@@ -149,15 +153,11 @@ export class ItemsComponent implements OnInit {
     this.item.itemID = i;
     this.itemFromPanel.item = this.item;
 
-    console.log("eh acessorio:" + this.cbIsAccessory);
-
     if (this.cbIsAccessory) {
       this.itemFromPanel.isAcessory = true;
     } else {
       this.itemFromPanel.isAcessory = false;
     }
-
-    console.log("eh equipamento:" + this.cbIsEquipment);
 
     if (this.cbIsEquipment) {
       this.itemFromPanel.isEquipment = true;
@@ -174,7 +174,6 @@ export class ItemsComponent implements OnInit {
     if (this.rbStack == "carga") {
       this.itemFromPanel.amountStack = this.amountStackInput;
     } else {
-      //  this.itemFromPanel.levelStrength = -1; //reset value fortify
       this.itemFromPanel.amountStack = undefined; //reset value stack
     }
 
@@ -182,18 +181,17 @@ export class ItemsComponent implements OnInit {
       this.ngOnInit();
       return;
     }
-    console.log("Objeto a ser inserido:", this.itemFromPanel)
 
     this.itemService.newItemFromPanel(this.itemFromPanel).subscribe(
       resultado => {
         console.log(resultado)
         this.itemFromPanel = resultado;
-        alert('Item ' + this.itemFromPanel.item.itemID + ' inserido ao jogador ' + this.user.login + ' com sucesso!')
+        this.toasty.success('Item ' + this.itemFromPanel.item.itemID + ' inserido ao jogador ' + this.user.login + ' com sucesso!');
         this.cleanFormSucess(form);
       },
       erro => {
         if (erro.status != 200) {
-          alert('Erro ao inserir item!');
+          this.toasty.error('Item: Serviço indisponível');
           this.cleanForm(form);
         }
       }
@@ -205,14 +203,14 @@ export class ItemsComponent implements OnInit {
 
     if (this.itemFromPanel.item.loginUID == undefined
       || this.itemFromPanel.item.loginUID.toString() == "") {
-      alert("Erro ao inserir item: Jogador inválido")
+      this.toasty.error("Item: Jogador inválido")
       return false;
     }
 
     if (this.itemFromPanel.item.itemID == undefined
       || this.itemFromPanel.item.itemID.toString() == ""
       || this.itemFromPanel.item.itemID.toString().length <= 3) {
-      alert("Erro ao inserir item: Id do item inválido -> " + this.itemFromPanel.item.itemID)
+      this.toasty.error("Item: Id do item inválido -> " + this.itemFromPanel.item.itemID)
       return false;
     }
 
@@ -225,7 +223,7 @@ export class ItemsComponent implements OnInit {
       ||
       this.itemFromPanel.item.gradeID.toString() == ""
     ) {
-      alert("Erro ao inserir item: Raridade inválida para item -> " + this.itemFromPanel.item.itemID);
+      this.toasty.error("Item: Raridade inválida para item -> " + this.itemFromPanel.item.itemID);
       return false;
     }
 
@@ -235,7 +233,7 @@ export class ItemsComponent implements OnInit {
         && (this.itemFromPanel.levelStrength < 0
           || this.itemFromPanel.levelStrength > 17))
     ) {
-      alert("Erro ao inserir item: Fortificação inválida para item -> " + this.itemFromPanel.item.itemID);
+      this.toasty.error("Item: Fortificação inválida para item -> " + this.itemFromPanel.item.itemID);
       return false;
     }
 
@@ -250,7 +248,6 @@ export class ItemsComponent implements OnInit {
   }
 
   cleanFormSucess(form: NgForm) {
-    // this.user = {} as User;
     this.itemFromPanel.cards = [];
     this.itemFromPanel.attributes = [];
   }

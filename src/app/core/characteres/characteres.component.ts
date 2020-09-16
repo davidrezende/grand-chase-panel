@@ -3,7 +3,7 @@ import { User } from '../../models/user';
 import { Character } from '../../models/character';
 import { CharacterService } from '../../services/character.service';
 import { NgForm } from '@angular/forms';
-
+import { ToastyService } from 'ng2-toasty';
 @Component({
   selector: 'app-characteres',
   templateUrl: './characteres.component.html',
@@ -39,7 +39,8 @@ export class CharacteresComponent implements OnInit {
 
   experienceUpdate: number;
 
-  constructor(private charService: CharacterService) { }
+  constructor(private charService: CharacterService,
+              private toasty: ToastyService) { }
 
   ngOnInit() {
 
@@ -60,25 +61,22 @@ export class CharacteresComponent implements OnInit {
     this.initUserInfo();
     this.charService.getCharactersPlayer(this.user.loginUID).subscribe(
       resultado => {
-        console.log(resultado);
         if (resultado != undefined || resultado != null) {
           this.chars = resultado;
           this.chars.forEach(charRes => {
             this.charsList.forEach((value: number, key: string) => {
               if (charRes.charType == value) {
                 this.userChars.set((key), (value));
-                console.log(this.userChars);
               }
             });
           })
         } else {
-          alert("Problema ao recuperar personagens.");
+          this.toasty.error("Problema ao recuperar personagens");
         }
       },
       erro => {
         if (erro.status != 200) {
-          alert("Servico Indisponivel.");
-          // this.cleanForm(form);
+          this.toasty.error("Personagens: Servico Indisponivel.");
         }
       }
     );
@@ -94,15 +92,14 @@ export class CharacteresComponent implements OnInit {
       resultado => {
         console.log(resultado);
         if (resultado != undefined || resultado != null) {
-          alert('Sucesso ao atualizar personagem!');
+          this.toasty.success("Sucesso ao atualizar personagem");
         } else {
-          alert("Problema ao atualizar personagem.");
+          this.toasty.error("Problema ao atualizar personagem");
         }
       },
       erro => {
         if (erro.status != 200) {
-          alert("Servico indisponivel.");
-          // this.cleanForm(form);
+          this.toasty.error("Personagens: Serviço indisponível");
         }
       }
     );
@@ -114,10 +111,6 @@ export class CharacteresComponent implements OnInit {
     this.user = {} as User;
     this.playerCharacteres = [];
     this.chars = {} as Character[];
-  }
-
-  cleanFormSucess(form: NgForm) {
-    // this.user = {} as User;
   }
 
 }

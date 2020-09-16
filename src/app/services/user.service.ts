@@ -80,7 +80,8 @@ export class UserService {
       errorMessage = error.error.message;
     } else {
       // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+      errorMessage = `${error.error.errors[0].message}`;
+      console.log(JSON.stringify(error));
     }
     console.log(errorMessage);
     return throwError(errorMessage);

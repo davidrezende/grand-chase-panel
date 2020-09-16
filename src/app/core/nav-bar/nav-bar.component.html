@@ -7,7 +7,11 @@
 <div class="nav-scroller bg-white shadow-sm">
   <nav class="nav nav-underline">
     <!-- <a class="nav-link active" routerLink="/dashboard" routerLinkActive="active">Dashboard</a> -->
-    <a class="nav-link active" routerLink="/player" routerLinkActive="active">Adicionar Jogador</a>
+
+    <li *ngIf="auth.hasAnyPermission(['ROLE_ADMIN'])">
+      <a class="nav-link active" routerLink="/player" routerLinkActive="active">Adicionar Jogador</a>
+    </li>
+
     <a class="nav-link active" routerLink="/managementPlayer" routerLinkActive="active">Gerenciar Jogador</a>
     <!-- <a class="nav-link active" routerLink="/item" routerLinkActive="active">Adicionar Itens</a> -->
     <!-- <a class="nav-link active" routerLink="/characteres" routerLinkActive="active">Gerenciar Personagens</a> -->

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { NgForm } from '@angular/forms';
+import { ToastyService } from 'ng2-toasty';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Component({
   selector: 'app-users',
@@ -16,7 +18,9 @@ export class UsersComponent implements OnInit {
   sexSelected: string = '';
 
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+    private toasty: ToastyService,
+    private errorHandlerService: ErrorHandlerService) { }
 
   ngOnInit() {
   }
@@ -29,9 +33,6 @@ export class UsersComponent implements OnInit {
   }
 
   async findUserByLogin(login: string) {
-    // this.userService.findUserByLogin(login).subscribe((user: User) => {
-    //   this.user = user;
-    // })
     await this.userService.findUserByLogin(login).then(user => {
       this.user = user;
     });
@@ -43,33 +44,21 @@ export class UsersComponent implements OnInit {
         this.cleanForm(form);
       });
     } else {
-      // this.userService.saveUser(this.user).subscribe(() => {
-      // this.cleanForm(form);
-      // });
       this.userService.saveUser(this.user).subscribe(
         resultado => {
-          console.log(resultado)
-          alert('Jogador ' + this.user.login + ' salvo com sucesso')
+          this.toasty.success("Jogador '" + this.user.login + "' salvo com sucesso")
           this.lastRegisterUser = resultado;
-          // this.getUserRegistered();
           this.cleanForm(form);
         },
         erro => {
           if (erro.status != 200) {
-            alert('Erro ao salvar novo jogador.');
+            this.errorHandlerService.handle(erro);
+            return;
           }
         }
       );
     }
   }
-
-  // getUserRegistered() {
-  //   this.userService.findUserByLogin(this.user.login).subscribe((userReg : User) => {
-  //     this.lastRegisterUser = userReg;
-  //     console.log("Usuario inserido buscado: " + this.lastRegisterUser.login);
-  //   });
-  // }
-
 
   async getUserRegistered() {
     await this.userService.findUserByLogin(this.user.login).then(userReg => {
@@ -80,7 +69,6 @@ export class UsersComponent implements OnInit {
   cleanForm(form: NgForm) {
     form.resetForm();
     this.user = {} as User;
-    console.log("Usuario inserido buscado dps do clean: " + this.lastRegisterUser.login);
   }
 
 }

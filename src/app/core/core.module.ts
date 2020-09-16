@@ -7,6 +7,7 @@ import { UsersComponent } from './users/users.component';
 import { ItemsComponent } from './items/items.component';
 import { FormsModule } from '@angular/forms';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { ToastyModule } from 'ng2-toasty';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
   imports: [
     CommonModule,
     FormsModule,
+    ToastyModule
   ]
 })
 export class CoreModule { }
