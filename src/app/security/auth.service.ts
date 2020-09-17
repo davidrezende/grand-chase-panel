@@ -15,6 +15,7 @@ export class AuthService {
                }
 
   authTokenUrl = "http://26.163.161.201:8090/oauth/token";
+  revokeTokenUrl = "http://26.163.161.201:8090/api/v1/token/revoke";
   jwtPayload: any;
 
   login(user: string, password: string): Promise<void> {
@@ -97,13 +98,13 @@ export class AuthService {
     this.jwtPayload = null;
   }
 
-  // loggout(){
-  //   return this.http.delete(this.tokensRevokeUrl, {withCredentials: true})
-  //     .toPromise()
-  //     .then(() => {
-  //       this.cleanAccessToken();
-  //     })
-  // }
+  logout(){
+    return this.http.delete(this.revokeTokenUrl, {withCredentials: true})
+      .toPromise()
+      .then(() => {
+        this.cleanAccessToken();
+      })
+  }
 
 
 }

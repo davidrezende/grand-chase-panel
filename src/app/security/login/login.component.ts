@@ -24,11 +24,11 @@ export class LoginComponent {
         if(this.auth.hasPermission('ROLE_ADMIN') || this.auth.hasPermission('ROLE_MOD')){
           this.router.navigate(['/managementPlayer']);
         }else{
-            this.toasty.warning('Usuario bloqueado');
+            this.toasty.warning('Usuário bloqueado');
           }
       })
       .catch(error => {
-        this.toasty.error('Vish EROOOOOOOU!\nUsuario ou senha incorretos!')
+        this.toasty.error('Usuário ou senha inválidos!')
       });
   }
 

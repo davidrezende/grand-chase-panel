@@ -27,7 +27,17 @@ export class CharacteresComponent implements OnInit {
     ["Amy", 6],
     ["Jin", 7],
     ["Sieghart", 8],
-    ["Mari", 9]
+    ["Mari", 9],
+    ["Dio", 10],
+    ["Zero", 11],
+    ["Rey", 12],
+    ["Lupus", 13],
+    ["Lin", 14],
+    ["Azin", 15],
+    ["Holy", 16],
+    ["Edel", 17],
+    ["Veigas", 18],
+    ["Uno", 19]
   ])
 
   userChars = new Map();
