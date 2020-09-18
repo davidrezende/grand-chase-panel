@@ -3,15 +3,19 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { VirtualCash } from '../models/virtual-cash';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoinService {
 
-  url = 'http://26.163.161.201:8090/api/v1/coins';
+  // url = 'http://26.163.161.201:8090/api/v1/coins';
+  url : string;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    this.url = `${environment.apiUrl}/api/v1/coins`;
+  }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

@@ -3,20 +3,24 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Character } from '../models/character';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CharacterService {
 
-  url = 'http://26.163.161.201:8090/api/v1/character';
+  // url = 'http://26.163.161.201:8090/api/v1/character';
+  url : String;
 
   // Headers
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    this.url = `${environment.apiUrl}/api/v1/character`;
+  }
 
   getCharactersPlayer(loginUID: number): Observable<Character[]> {
     console.log("Listando todos os personagens do usuário com o loginUID::" + loginUID);

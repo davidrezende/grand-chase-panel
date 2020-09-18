@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,21 +9,22 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
 export class AuthService {
 
+  url: string;
+  authTokenUrl = "/oauth/token";
+  revokeTokenUrl = "/api/v1/token/revoke";
+  jwtPayload: any;
 
   constructor(private http: HttpClient,
-              private jwtHelper: JwtHelperService ) {
-                this.loadToken();
-               }
-
-  authTokenUrl = "http://26.163.161.201:8090/oauth/token";
-  revokeTokenUrl = "http://26.163.161.201:8090/api/v1/token/revoke";
-  jwtPayload: any;
+    private jwtHelper: JwtHelperService ) {
+      this.url = `${environment.apiUrl}`;
+      this.loadToken();
+     }
 
   login(user: string, password: string): Promise<void> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
     const body = `username=${user}&password=${password}&grant_type=password`;
 
-    return this.http.post(this.authTokenUrl, body, { headers, withCredentials: true })
+    return this.http.post(this.url+this.authTokenUrl, body, { headers, withCredentials: true })
       .toPromise()
       .then(response => {
         console.log(response);
@@ -64,7 +66,7 @@ export class AuthService {
 
     const body = 'grant_type=refresh_token';
 
-    return this.http.post(this.authTokenUrl, body,
+    return this.http.post(this.url+this.authTokenUrl, body,
       { headers, withCredentials: true })
     .toPromise()
     .then(response => {
@@ -99,7 +101,8 @@ export class AuthService {
   }
 
   logout(){
-    return this.http.delete(this.revokeTokenUrl, {withCredentials: true})
+    console.log('caminho do logout: ' + this.url+this.revokeTokenUrl);
+    return this.http.delete(this.url+this.revokeTokenUrl, {withCredentials: true})
       .toPromise()
       .then(() => {
         this.cleanAccessToken();

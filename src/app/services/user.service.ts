@@ -3,15 +3,19 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { User } from '../models/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  url = 'http://26.163.161.201:8090/api/v1/user';
+  // url = 'http://26.163.161.201:8090/api/v1/user';
+  url : string;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    this.url = `${environment.apiUrl}/api/v1/user`;
+  }
 
   // Headers
   httpOptions = {

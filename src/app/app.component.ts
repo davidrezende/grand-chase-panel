@@ -22,6 +22,10 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
+    console.log("url no navegador>" + this.router.url);
+    if(this.router.url == '/'){
+      this.router.navigate(['/login']);
+    }
     // this.isAuthenticated = await this.oktaAuth.isAuthenticated();
     // this.oktaAuth.$authenticationState.subscribe(
     //   (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated

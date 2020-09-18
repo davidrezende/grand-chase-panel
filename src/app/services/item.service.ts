@@ -3,20 +3,24 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { ItemPanel } from '../models/item-panel';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
 
-  url = 'http://26.163.161.201:8090/api/v1/item';
+  // url = 'http://26.163.161.201:8090/api/v1/item';
+  url : string;
 
   // Headers
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    this.url = `${environment.apiUrl}/api/v1/item`;
+   }
 
   newItemFromPanel(item: ItemPanel): Observable<ItemPanel> {
     console.log("Adicionando novo item pelo painel");
