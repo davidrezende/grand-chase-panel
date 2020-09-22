@@ -118,7 +118,7 @@
                 <div class="col-7">
                   <input [(ngModel)]="amountStackInput" [disabled]="rbStack != 'carga'" class="form-control"
                     [(ngModel)]="itemFromPanel.amountStack" type="text" name="inputStackAmount" id="inputStackAmount"
-                    value="" placeholder="( qt )">
+                    maxlength="3" value="" placeholder="( qt )">
                 </div>
               </div>
             </div>
@@ -146,7 +146,7 @@
                 <hr>
                 <div class="col-7">
                   <input [(ngModel)]="timeItemInput" [disabled]="rbTemporary != 'temporary'" class="form-control"
-                    type="text" name="qtd" id="gridRadios1" value="" placeholder="( days )">
+                  maxlength="3" type="text" name="qtd" id="gridRadios1" value="" placeholder="( days )">
                 </div>
               </div>
             </div>
