@@ -20,12 +20,12 @@
 
         <div class="row">
           <div class="form-group col-md-6">
-            <input maxlength="4" class="form-control" type="text" name="gp" id="gp" value="" placeholder="( GP )">
+            <input maxlength="9" [(ngModel)]="gpQuantity.gamePoint" class="form-control" type="text" name="gp" id="gp" value="" placeholder="( GP )">
           </div>
           <div class="form-row">
             <div class="col-md-4">
               <div class="form-group col-md-4">
-              <button type="submit" class="btn btn-primary">Enviar</button>
+              <button type="submit" class="btn btn-primary" (click)="sendGPUser(f)">Enviar</button>
             </div>
             </div>
           </div>

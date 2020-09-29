@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { VirtualCash } from '../models/virtual-cash';
 import { environment } from 'src/environments/environment';
+import { CharacterInfo } from '../models/character-info';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,15 @@ export class CoinService {
   sendVPUser(vpUser : VirtualCash): Observable<VirtualCash> {
     console.log("Atualizando VP do usuário com o loginUID::" + vpUser.loginUID);
     return this.httpClient.post<VirtualCash>(this.url + '/sendVP', vpUser, this.httpOptions)
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+
+  sendGPUser(gpUser : CharacterInfo): Observable<CharacterInfo[]> {
+    console.log("Atualizando GP do usuário com o loginUID::" + gpUser.loginUID);
+    return this.httpClient.post<CharacterInfo[]>(this.url + '/sendGP', gpUser, this.httpOptions)
       .pipe(
         retry(0),
         catchError(this.handleError)
