@@ -8,6 +8,7 @@ import { ItemsComponent } from './items/items.component';
 import { FormsModule } from '@angular/forms';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ToastyModule } from 'ng2-toasty';
+import { DeleteItemComponent } from './delete-item/delete-item.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ToastyModule } from 'ng2-toasty';
     CharacteresComponent,
     ManagementPlayerComponent,
     CoinsComponent,
+    DeleteItemComponent,
   ],
   imports: [
     CommonModule,

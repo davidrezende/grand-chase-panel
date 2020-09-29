@@ -14,7 +14,7 @@ export class GCHttpInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (!req.url.includes('/oauth/token') && this.auth.isInvalidAccessToken() && !req.url.includes('/menu/find/store/') ) {
+    if (!req.url.includes('/oauth/token') && this.auth.isInvalidAccessToken() && !req.url.includes('/login') ) {
       return from(this.auth.getNewAccessToken())
         .pipe(
           mergeMap(() => {

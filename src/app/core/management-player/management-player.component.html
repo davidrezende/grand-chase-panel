@@ -61,6 +61,11 @@
         <app-coins [userFounded]="user" ></app-coins>
       </div>
     </div>
+    <div class="col-md-6">
+      <div *ngIf="user.loginUID" id="div-delete-items" name="div-delete-items">
+        <app-delete-item [userFounded]="user" ></app-delete-item>
+      </div>
+    </div>
   </div>
 </div>
 </div>

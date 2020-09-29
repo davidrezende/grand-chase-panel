@@ -1,0 +1,21 @@
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <h6 class="border-bottom border-gray pb-2 mb-0">Deletar itens <small>( Delete items for a player )</small></h6>
+
+  <div class="text-muted pt-3">
+    <form id="form-item-panel" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+      <div class="form-row">
+          <div class="form-group col-md-6">
+            <!-- <input maxlength="10" [(ngModel)]="itemDelete.itemID" class="form-control" type="text" name="itemDelete" id="itemDelete" value="" placeholder="( Item ID )"> -->
+            <textarea placeholder="Items (List of items)" [(ngModel)]="textAreaItemsDelete"
+                  (ngModelChange)="parseTextArea()" class="form-control" id="taVariousItems"
+                  name="taVariousItems"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="col-md-4">
+              <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-primary" (click)="deleteItemsFromPanel(f)">Delete</button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </form>

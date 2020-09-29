@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { ItemPanel } from '../models/item-panel';
 import { environment } from 'src/environments/environment';
+import { Item } from '../models/item';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,15 @@ export class ItemService {
   newItemFromPanel(item: ItemPanel): Observable<ItemPanel> {
     console.log("Adicionando novo item pelo painel");
     return this.httpClient.post<ItemPanel>(this.url + '/newItemFromPanel', JSON.stringify(item), this.httpOptions)
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+
+  deleteItem(item: Item): Observable<Item> {
+    console.log("Removendo item da conta de player");
+    return this.httpClient.post<Item>(this.url + '/remove', JSON.stringify(item), this.httpOptions)
       .pipe(
         retry(0),
         catchError(this.handleError)
